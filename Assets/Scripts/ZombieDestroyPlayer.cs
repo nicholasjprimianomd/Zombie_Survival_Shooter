@@ -6,8 +6,8 @@ public class ZombieDestroyPlayer : MonoBehaviour
 
 	void OnCollisionEnter2D (Collision2D coll)
 	{
-		if (coll.gameObject.tag == "Player")
-			Destroy (coll.gameObject);
-
+		if (coll.gameObject.tag == "Player") {
+		}
+		//Destroy (coll.gameObject);
 	}
 }
