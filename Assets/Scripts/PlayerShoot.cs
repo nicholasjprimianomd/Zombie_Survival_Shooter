@@ -22,14 +22,4 @@ public class PlayerShoot : MonoBehaviour
 			bulletRigidBody2D.AddForce (bulletDirection * bulletSpeed, ForceMode2D.Impulse);
 		}
 	}
-
-	void OnCollisionEnter2D (Collision2D coll)
-	{
-		if (coll.gameObject.tag == "Zombie") {
-			Destroy (coll.gameObject);
-			Destroy (gameObject);
-			print ("debug 1");
-		}
-		print ("debug 2");
-	}
 }
