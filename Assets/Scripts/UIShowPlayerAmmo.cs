@@ -14,6 +14,6 @@ public class UIShowPlayerAmmo : MonoBehaviour
 
 	void Update ()
 	{
-		ammoText.text = player.rounds.ToString () + " / " + player.ammo.ToString ();
+		ammoText.text = "Ammo : " + player.rounds.ToString () + " / " + player.ammo.ToString ();
 	}
 }

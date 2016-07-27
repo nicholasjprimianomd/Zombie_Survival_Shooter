@@ -8,27 +8,19 @@ public class SpawnZombie : MonoBehaviour
 	public GameObject zombie;
 	public GameObject player;
 	public float offsetRange = 5;
-	private float spawnTimer = 1f;
+	public float spawnTimer = 2f;
 
 	void spawnZombie ()
 	{
-		float offset = Random.Range (-offsetRange - 100, offsetRange + 100);
+		float offset = Random.Range (-offsetRange - 75, offsetRange + 75);
 		Vector3 zombeSpawnLocation = new Vector3 (player.transform.position.x + offset, player.transform.position.y + offset, player.transform.position.z);
 		Instantiate (zombie, zombeSpawnLocation, Quaternion.identity);
 	}
 
 	void Start ()
 	{
-		spawnZombie ();
-		//InvokeRepeating ("spawnZombie", 1f, 2f); <- This is an annoyign function
+		InvokeRepeating ("spawnZombie", 1f, spawnTimer);
 	}
 
-	void Update ()
-	{
-		if (Time.timeSinceLevelLoad % 10 == 0) {
-			spawnZombie ();
-		}
-
-	}
 		
 }

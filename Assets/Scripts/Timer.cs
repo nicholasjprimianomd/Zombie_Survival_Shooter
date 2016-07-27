@@ -54,14 +54,15 @@ public class Timer : MonoBehaviour
 		int minutes = Mathf.FloorToInt (timer / 60f);
 		int seconds = Mathf.FloorToInt (timer - minutes * 60);
 		string time = string.Format ("{0:00}:{1:00}", minutes, seconds);
-		string score = Mathf.FloorToInt (timer).ToString ();
+		float timeScore = Mathf.FloorToInt (timer);
+		timeScore += score;
 
 		if (scene.name == "Game") {
 			GUI.Box (new Rect (10, 10, 125, 25), "Game Timer : " + time, fontSmall);
-			GUI.Box (new Rect (10, 35, 125, 25), "Score : " + score, fontSmall);
+			GUI.Box (new Rect (10, 35, 125, 25), "Score : " + timeScore.ToString (), fontSmall);
 		} else {
-			GUI.Label (new Rect (709, 341, 125, 200), time, font);
-			GUI.Label (new Rect (709, 380, 125, 200), score, font);
+			GUI.Label (new Rect (400, 280, 125, 200), "Game Timer : " + time, font);
+			GUI.Label (new Rect (450, 330, 125, 200), "Score : " + timeScore.ToString (), font);
 		}
 		//} else if (win.playerWin && !failUITime) {
 		//	GUI.Label (new Rect (709, 341, 125, 200), time, font);

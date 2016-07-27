@@ -18,6 +18,6 @@ public class UIShowPlayerHealth : MonoBehaviour
 	//Show player Health on UI
 	void Update ()
 	{
-		playerHealthText.text = player.currentHealth.ToString ();
+		playerHealthText.text = "Health : " + player.currentHealth.ToString ();
 	}
 }
