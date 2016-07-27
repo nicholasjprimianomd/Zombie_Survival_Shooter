@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
-public class UIShowPlayerAmmo : MonoBehaviour {
+public class UIShowPlayerAmmo : MonoBehaviour
+{
+	public PlayerShoot player;
+	private Text ammoText;
 
-	// Use this for initialization
-	void Start () {
-	
+	void Start ()
+	{
+		ammoText = GetComponent<Text> ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	void Update ()
+	{
+		ammoText.text = player.rounds.ToString () + " / " + player.ammo.ToString ();
 	}
 }

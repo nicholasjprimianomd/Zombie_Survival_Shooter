@@ -10,7 +10,8 @@ public class PlayerTakeDamage : MonoBehaviour
 	void OnCollisionEnter2D (Collision2D coll)
 	{
 		if (coll.gameObject.tag == "Zombie") {
+			currentHealth -= 1;
 		}
-		currentHealth -= 1;
+
 	}
 }
