@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Net;
 
 public class SpawnZombie : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class SpawnZombie : MonoBehaviour
 	public GameObject zombie;
 	public GameObject player;
 	public float offsetRange = 5;
+	private float spawnTimer = 1f;
 
 	void spawnZombie ()
 	{
@@ -17,6 +19,16 @@ public class SpawnZombie : MonoBehaviour
 
 	void Start ()
 	{
-		InvokeRepeating ("spawnZombie", 1f, 2f);
+		spawnZombie ();
+		//InvokeRepeating ("spawnZombie", 1f, 2f); <- This is an annoyign function
 	}
+
+	void Update ()
+	{
+		if (Time.timeSinceLevelLoad % 10 == 0) {
+			spawnZombie ();
+		}
+
+	}
+		
 }

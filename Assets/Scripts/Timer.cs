@@ -2,6 +2,8 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Linq.Expressions;
+using System;
 
 
 public class Timer : MonoBehaviour
@@ -13,13 +15,14 @@ public class Timer : MonoBehaviour
 	GUIStyle fontSmall;
 	public float timer = 0;
 	//private Treasure win;
-	//private Scene scene;
+	private Scene scene;
 	//private bool failUITime = false;
+	public float score = 0;
 
 	void Start ()
 	{
 		//win = playerWin.GetComponent<Treasure> ();
-		//scene = SceneManager.GetActiveScene ();
+		scene = SceneManager.GetActiveScene ();
 
 		if (instance != null) {
 			Destroy (gameObject);
@@ -31,6 +34,7 @@ public class Timer : MonoBehaviour
 	
 		font = new GUIStyle ();
 		font.fontSize = 36;
+		font.normal.textColor = Color.white;
 		fontSmall = new GUIStyle ();
 		fontSmall.fontSize = 20;
 		fontSmall.normal.textColor = Color.white;
@@ -38,7 +42,11 @@ public class Timer : MonoBehaviour
 
 	void Update ()
 	{
-		timer += Time.deltaTime;
+		if (scene.name == "Game") {
+			timer += Time.deltaTime;
+		}
+
+		scene = SceneManager.GetActiveScene ();
 	}
 
 	void OnGUI ()
@@ -46,9 +54,15 @@ public class Timer : MonoBehaviour
 		int minutes = Mathf.FloorToInt (timer / 60f);
 		int seconds = Mathf.FloorToInt (timer - minutes * 60);
 		string time = string.Format ("{0:00}:{1:00}", minutes, seconds);
+		string score = Mathf.FloorToInt (timer).ToString ();
 
-		//	if (!win.playerWin && scene.name == "PlayerMoving") {
-		GUI.Box (new Rect (10, 10, 125, 25), "Game Timer : " + time, fontSmall);
+		if (scene.name == "Game") {
+			GUI.Box (new Rect (10, 10, 125, 25), "Game Timer : " + time, fontSmall);
+			GUI.Box (new Rect (10, 35, 125, 25), "Score : " + score, fontSmall);
+		} else {
+			GUI.Label (new Rect (709, 341, 125, 200), time, font);
+			GUI.Label (new Rect (709, 380, 125, 200), score, font);
+		}
 		//} else if (win.playerWin && !failUITime) {
 		//	GUI.Label (new Rect (709, 341, 125, 200), time, font);
 		//Debug.Log (failUITime);
