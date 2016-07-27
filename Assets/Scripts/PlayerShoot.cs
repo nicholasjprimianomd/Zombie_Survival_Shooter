@@ -15,7 +15,6 @@ public class PlayerShoot : MonoBehaviour
 	void Update ()
 	{
 		Vector2 bulletDirection = (spawnPoint.position - transform.position).normalized;
-		print (bulletDirection);
 		if ((Input.GetKeyDown (KeyCode.Space))) {
 			GameObject bulletPrefab = Instantiate (bullet, spawnPoint.position, transform.rotation) as GameObject;
 			Rigidbody2D bulletRigidBody2D = bulletPrefab.GetComponent<Rigidbody2D> ();

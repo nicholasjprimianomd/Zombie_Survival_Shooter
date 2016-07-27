@@ -9,7 +9,6 @@ public class BulletKillZombie : MonoBehaviour
 		if (coll.gameObject.tag == "Zombie") {
 			Destroy (coll.gameObject);
 			Destroy (gameObject);
-			print ("debug 1");
 		}
 
 	}

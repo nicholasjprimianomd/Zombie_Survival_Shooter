@@ -10,19 +10,13 @@ public class SpawnZombie : MonoBehaviour
 
 	void spawnZombie ()
 	{
-		float offset = Random.Range (-offsetRange, offsetRange);
+		float offset = Random.Range (-offsetRange - 100, offsetRange + 100);
 		Vector3 zombeSpawnLocation = new Vector3 (player.transform.position.x + offset, player.transform.position.y + offset, player.transform.position.z);
 		Instantiate (zombie, zombeSpawnLocation, Quaternion.identity);
 	}
 
 	void Start ()
 	{
-		InvokeRepeating ("spawnZombie", 2f, 10f);
+		InvokeRepeating ("spawnZombie", 1f, 2f);
 	}
-
-	void Update ()
-	{
-		
-	}
-
 }

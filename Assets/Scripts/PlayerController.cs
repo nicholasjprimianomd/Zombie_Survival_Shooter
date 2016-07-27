@@ -25,9 +25,9 @@ public class PlayerController : MonoBehaviour
 			
 		Vector3 cursorPositionInWorld = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		cursorPositionInWorld.z = 0;
-		Vector3 point = transform.position - cursorPositionInWorld;
-		transform.up = point * Time.deltaTime;
 
+		Vector3 point = cursorPositionInWorld - transform.position;
+		transform.up = point;
 	}
 
 	// FixedUpdate is when Physics runs
@@ -35,7 +35,4 @@ public class PlayerController : MonoBehaviour
 	{
 		myRigidbody.velocity = moveVector * moveSpeed;
 	}
-
-
-
 }
