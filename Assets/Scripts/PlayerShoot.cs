@@ -2,9 +2,7 @@
 using System.Collections;
 using System.Diagnostics;
 using UnityEngine.Rendering;
-using UnityEditor;
-using System.Net.Sockets;
-using System;
+
 
 public class PlayerShoot : MonoBehaviour
 {
