@@ -31,7 +31,7 @@ public class Grapple : MonoBehaviour {
 
 		if (isLerping && enemy) {
 			Debug.Log ("Moving toward enemy");
-			enemy.transform.position = Vector3.MoveTowards (enemy.transform.position, player.transform.position, .2f);
+			enemy.transform.position = Vector3.MoveTowards (enemy.transform.position, player.transform.position, .15f);
 			if(Vector3.Distance (enemy.transform.position, player.transform.position) < 0.5f){
 				
 				isLerping = false;
