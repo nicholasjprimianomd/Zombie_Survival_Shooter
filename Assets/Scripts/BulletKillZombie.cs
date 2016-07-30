@@ -16,7 +16,7 @@ public class BulletKillZombie : MonoBehaviour
 	{
 		if (coll.gameObject.tag == "Zombie") {
 			gameScore.score = gameScore.score + 5;
-			Debug.Log (gameScore);
+			//Debug.Log (gameScore);
 			Destroy (coll.gameObject);
 			Destroy (gameObject);
 		}

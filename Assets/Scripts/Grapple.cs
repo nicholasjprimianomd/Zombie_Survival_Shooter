@@ -29,10 +29,10 @@ public class Grapple : MonoBehaviour {
 			}
 		}
 
-		if (isLerping && enemy) {
+		if (isLerping && isEnemy) {
 			Debug.Log ("Moving toward enemy");
 			enemy.transform.position = Vector3.MoveTowards (enemy.transform.position, player.transform.position, .15f);
-			if(Vector3.Distance (enemy.transform.position, player.transform.position) < 0.5f){
+			if(Vector3.Distance (enemy.transform.position, player.transform.position) < 1f){
 				
 				isLerping = false;
 				isEnemy = false;
@@ -59,7 +59,7 @@ public class Grapple : MonoBehaviour {
 			isEnemy = true;
 			enemy.GetComponent<ZombieMove> ().canMove = false;
 
-			Debug.Log ("Enemy contact, isEnemy: " + isEnemy);
+			//Debug.Log ("Enemy contact, isEnemy: " + isEnemy);
 		}
 
 	}
