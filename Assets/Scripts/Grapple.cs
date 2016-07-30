@@ -12,6 +12,7 @@ public class Grapple : MonoBehaviour {
 	private bool isWall = false;
 	private bool isEnemy = false;
 	private bool canCollide;
+	private MoveEnemy movingEnemy;
 
 	void Awake() {
 		canCollide = true;
@@ -25,21 +26,28 @@ public class Grapple : MonoBehaviour {
 			if(player.transform.position == endMarker.position){
 				isLerping = false;
 				isWall = false;
-				DestroyImmediate (gameObject);
+				gameObject.SetActive (false);
 			}
 		}
 
 		if (isLerping && isEnemy) {
-			Debug.Log ("Moving toward enemy");
 			enemy.transform.position = Vector3.MoveTowards (enemy.transform.position, player.transform.position, .15f);
 			if(Vector3.Distance (enemy.transform.position, player.transform.position) < 1f){
 				isLerping = false;
 				isEnemy = false;
-				enemy.GetComponent<ZombieMove> ().canMove = true;
-				DestroyImmediate (gameObject);
+				//Check for following zombie
+				if (enemy.GetComponent<ZombieMove> () != null) {
+					enemy.GetComponent<ZombieMove> ().canMove = true;
+				}
+
+				//Start static moving Zombie again
+				if(movingEnemy!= null){
+					movingEnemy.enemyCanMove = true;
+				}
+
+				gameObject.SetActive (false);
 			}
 		}
-
 	}
 		
 	void OnCollisionEnter2D (Collision2D coll)
@@ -54,14 +62,23 @@ public class Grapple : MonoBehaviour {
 			}
 
 			if (coll.gameObject.tag == "Zombie") {
+				//Check for static moving zombie
+				if(coll.gameObject.GetComponent<MoveEnemy>() != null){
+					movingEnemy = coll.gameObject.GetComponent<MoveEnemy> ();
+					movingEnemy.enemyCanMove = false;
+				}
+
 				enemy = coll.gameObject;
 				isLerping = true;
 				isEnemy = true;
-				enemy.GetComponent<ZombieMove> ().canMove = false;
+
+				//Check for following zombie
+				if (enemy.GetComponent<ZombieMove> () != null) {
+					enemy.GetComponent<ZombieMove> ().canMove = false;
+				}
+
 				canCollide = false;
 			}
 		}
-
 	}
-
 }
