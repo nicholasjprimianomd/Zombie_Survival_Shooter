@@ -30,7 +30,7 @@ public class PlayerShoot : MonoBehaviour
 
 	void shoot ()
 	{
-		if (Input.GetMouseButtonDown (0)) {
+		if (!Input.GetMouseButtonDown (1) && Input.GetMouseButtonDown (0)) {
 			Vector2 bulletDirection = (spawnPoint.position - transform.position).normalized;
 			GameObject bulletPrefab = Instantiate (bullet, spawnPoint.position, transform.rotation) as GameObject;
 			Rigidbody2D bulletRigidBody2D = bulletPrefab.GetComponent<Rigidbody2D> ();
