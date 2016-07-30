@@ -25,7 +25,7 @@ public class Grapple : MonoBehaviour {
 			if(player.transform.position == endMarker.position){
 				isLerping = false;
 				isWall = false;
-				Destroy (gameObject);
+				DestroyImmediate (gameObject);
 			}
 		}
 
@@ -38,7 +38,7 @@ public class Grapple : MonoBehaviour {
 				isEnemy = false;
 				enemy.GetComponent<ZombieMove> ().canMove = true;
 
-				Destroy (gameObject);
+				DestroyImmediate (gameObject);
 			}
 		}
 	}

@@ -35,7 +35,7 @@ public class PlayerShoot : MonoBehaviour
 			GameObject bulletPrefab = Instantiate (bullet, spawnPoint.position, transform.rotation) as GameObject;
 			Rigidbody2D bulletRigidBody2D = bulletPrefab.GetComponent<Rigidbody2D> ();
 			bulletRigidBody2D.AddForce (bulletDirection * bulletSpeed, ForceMode2D.Impulse);
-			rounds -= 1;
+			//rounds -= 1;
 		}
 	}
 
