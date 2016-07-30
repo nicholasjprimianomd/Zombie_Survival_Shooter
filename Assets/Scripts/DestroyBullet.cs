@@ -9,6 +9,6 @@ public class DestroyBullet : MonoBehaviour
 		if (coll.gameObject.tag == "Bullet") {
 			Destroy (coll.gameObject);
 		}
-
+		Debug.Log ("Destroy Bullet!");
 	}
 }

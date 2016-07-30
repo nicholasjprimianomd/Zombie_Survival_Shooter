@@ -18,7 +18,6 @@ public class Grapple : MonoBehaviour {
 	}
 
 	void Update() {
-		Debug.Log (canCollide);
 		player = GameObject.FindGameObjectWithTag ("Player");
 
 		if (isLerping && isWall) {
@@ -40,6 +39,7 @@ public class Grapple : MonoBehaviour {
 				DestroyImmediate (gameObject);
 			}
 		}
+
 	}
 		
 	void OnCollisionEnter2D (Collision2D coll)

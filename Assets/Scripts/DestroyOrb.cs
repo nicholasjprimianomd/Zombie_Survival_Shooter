@@ -16,9 +16,11 @@ public class DestroyOrb : MonoBehaviour {
 	void Update ()
 	{
 		currentTime = Time.time;
+
 		if(currentTime - initalTime > lifeTime ){
 			Destroy(gameObject);
 		}
+
 		Vector3 center = transform.position;
 
 		if(orbHealth == 0){
@@ -40,16 +42,15 @@ public class DestroyOrb : MonoBehaviour {
 		
 	void ExplosionDamage(Vector3 center) {
 		Collider2D[] hitColliders = Physics2D.OverlapCircleAll(center, explosionRadius);
+
 		int i = 0;
 		while (i < hitColliders.Length) {
-			
-				hitColliders [i].SendMessage ("AddDamage");
-				Debug.Log ("Pop orb");
-			if (hitColliders [i].tag != "Player") {
+			Debug.Log ("Pop orb");
+			if (hitColliders [i].tag == "Zombie") {
 				Destroy (hitColliders [i].gameObject);
 			}
 				i++;
-			
 		}
+		Destroy (gameObject);
 	}
 }
