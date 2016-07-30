@@ -11,16 +11,17 @@ public class Grapple : MonoBehaviour {
 	private bool isLerping = false;
 	private bool isWall = false;
 	private bool isEnemy = false;
+	private bool canCollide;
 
-	void Start() {
-
+	void Awake() {
+		canCollide = true;
 	}
 
 	void Update() {
+		Debug.Log (canCollide);
 		player = GameObject.FindGameObjectWithTag ("Player");
 
 		if (isLerping && isWall) {
-			Debug.Log ("Moving toward wall");
 			player.transform.position = Vector3.MoveTowards (startMarker.position, endMarker.position, .5f);
 			if(player.transform.position == endMarker.position){
 				isLerping = false;
@@ -33,11 +34,9 @@ public class Grapple : MonoBehaviour {
 			Debug.Log ("Moving toward enemy");
 			enemy.transform.position = Vector3.MoveTowards (enemy.transform.position, player.transform.position, .15f);
 			if(Vector3.Distance (enemy.transform.position, player.transform.position) < 1f){
-				
 				isLerping = false;
 				isEnemy = false;
 				enemy.GetComponent<ZombieMove> ().canMove = true;
-
 				DestroyImmediate (gameObject);
 			}
 		}
@@ -45,21 +44,22 @@ public class Grapple : MonoBehaviour {
 		
 	void OnCollisionEnter2D (Collision2D coll)
 	{
-		if (coll.gameObject.tag == "Wall") {
-			startMarker = player.transform;
-			endMarker = transform;
-			isLerping = true;
-			isWall = true;
-		}
+		if (canCollide) {
+			if (coll.gameObject.tag == "Wall") {
+				startMarker = player.transform;
+				endMarker = transform;
+				isLerping = true;
+				isWall = true;
+				canCollide = false;
+			}
 
-		if (coll.gameObject.tag == "Zombie") {
-			enemy = coll.gameObject;
-			//startMarker = enemy.transform;
-			isLerping = true;
-			isEnemy = true;
-			enemy.GetComponent<ZombieMove> ().canMove = false;
-
-			//Debug.Log ("Enemy contact, isEnemy: " + isEnemy);
+			if (coll.gameObject.tag == "Zombie") {
+				enemy = coll.gameObject;
+				isLerping = true;
+				isEnemy = true;
+				enemy.GetComponent<ZombieMove> ().canMove = false;
+				canCollide = false;
+			}
 		}
 
 	}
