@@ -101,9 +101,9 @@ public class PlayerShoot : MonoBehaviour
 				bulletRigidBody2D3.AddForce (bulletDirection3 * bulletSpeed, ForceMode2D.Impulse);
 				rounds -= 1;
 			}
+
 			burstOffCoolDown = false;
 			burstCoolDown = Time.time;
-			print ("Num rounds: " + rounds);
 		}
 	}
 
