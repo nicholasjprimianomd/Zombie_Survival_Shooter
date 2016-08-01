@@ -30,7 +30,7 @@ public class PlayerShootBurst : MonoBehaviour
 		}
 	}
 
-	void shoot ()
+	void shootBurst ()
 	{
 		if (Input.GetMouseButtonDown (1) && !Input.GetMouseButtonDown (0)) {
 			Vector2 bulletDirection = (spawnPointLeft.position - transform.position /* + new Vector3(0,10,0)*/).normalized;
