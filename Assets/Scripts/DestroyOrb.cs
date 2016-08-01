@@ -37,9 +37,9 @@ public class DestroyOrb : MonoBehaviour
 			print ("Stun");
 		}
 
-		if (coll.gameObject.tag != "Player" && coll.gameObject.tag != "Bullet" && coll.gameObject.tag != "Zombie") {
-			Destroy (gameObject);
-		}
+		//if (coll.gameObject.tag != "Player" && coll.gameObject.tag != "Bullet" && coll.gameObject.tag != "Zombie") {
+		//	Destroy (gameObject);
+		//}
 
 		if (coll.gameObject.tag == "Bullet") {
 			orbHealth -= 1;
