@@ -20,14 +20,44 @@ public class PlayerShoot : MonoBehaviour
 	public int ammo = 16;
 	private const int maxRounds = 8;
 
+	private float currentTime;
+
+	private bool offCoolDown;
+	private float coolDown;
+	public float shootCoolDown = .5f;
+
+	private bool burstOffCoolDown;
+	private float burstCoolDown;
+	public float burstCoolDownTime = 2f;
+
+	void Start ()
+	{
+		offCoolDown = true;
+		burstOffCoolDown = true;
+	}
+
 	void Update ()
 	{
+
+		currentTime = Time.time;
+
+		if (currentTime - coolDown > shootCoolDown) {
+			offCoolDown = true;
+		}
+
+		if (currentTime - burstCoolDown > burstCoolDownTime) {
+			burstOffCoolDown = true;
+		}
+
 		if (Input.GetKeyDown (KeyCode.R) && ammo > 0) {
 			reload ();
 		}
 
-		if (canShoot && rounds > 0) {
+		if (canShoot && rounds > 0 && offCoolDown) {
 			shoot ();
+		}
+
+		if (canShoot && rounds > 0 && burstOffCoolDown) {
 			shootBurst ();
 		}
 	}
@@ -39,6 +69,9 @@ public class PlayerShoot : MonoBehaviour
 			GameObject bulletPrefab = Instantiate (bullet, spawnPoint.position, transform.rotation) as GameObject;
 			Rigidbody2D bulletRigidBody2D = bulletPrefab.GetComponent<Rigidbody2D> ();
 			bulletRigidBody2D.AddForce (bulletDirection * bulletSpeed, ForceMode2D.Impulse);
+
+			offCoolDown = false;
+			coolDown = Time.time;
 			rounds -= 1;
 		}
 	}
@@ -68,7 +101,8 @@ public class PlayerShoot : MonoBehaviour
 				bulletRigidBody2D3.AddForce (bulletDirection3 * bulletSpeed, ForceMode2D.Impulse);
 				rounds -= 1;
 			}
-
+			burstOffCoolDown = false;
+			burstCoolDown = Time.time;
 			print ("Num rounds: " + rounds);
 		}
 	}
