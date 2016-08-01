@@ -8,10 +8,13 @@ public class PlayerShoot : MonoBehaviour
 {
 
 	public GameObject bullet;
+	//public GameObject bullet;
 	public Transform spawnPoint;
+	public Transform spawnPointLeft;
+	public Transform spawnPointRight;
 	public float xOffset = 0;
 	public float yOffset = 1;
-	public float bulletSpeed = .00001f;
+	public float bulletSpeed;
 	public bool canShoot = true;
 	public int rounds = 8;
 	public int ammo = 16;
@@ -25,6 +28,7 @@ public class PlayerShoot : MonoBehaviour
 
 		if (canShoot && rounds > 0) {
 			shoot ();
+			shootBurst ();
 		}
 	}
 
@@ -35,14 +39,45 @@ public class PlayerShoot : MonoBehaviour
 			GameObject bulletPrefab = Instantiate (bullet, spawnPoint.position, transform.rotation) as GameObject;
 			Rigidbody2D bulletRigidBody2D = bulletPrefab.GetComponent<Rigidbody2D> ();
 			bulletRigidBody2D.AddForce (bulletDirection * bulletSpeed, ForceMode2D.Impulse);
-			//rounds -= 1;
+			rounds -= 1;
 		}
 	}
+
+
+	void shootBurst ()
+	{
+		if (Input.GetMouseButtonDown (1) && !Input.GetMouseButtonDown (0)) {
+			Vector2 bulletDirection = (spawnPointLeft.position - transform.position /* + new Vector3(0,10,0)*/).normalized;
+			GameObject bulletPrefab = Instantiate (bullet, spawnPointLeft.position, transform.rotation) as GameObject;
+			Rigidbody2D bulletRigidBody2D = bulletPrefab.GetComponent<Rigidbody2D> ();
+			bulletRigidBody2D.AddForce (bulletDirection * bulletSpeed, ForceMode2D.Impulse);
+			rounds -= 1;
+
+			if (rounds > 0) {
+				Vector2 bulletDirection2 = (spawnPoint.position - transform.position).normalized;
+				GameObject bulletPrefab2 = Instantiate (bullet, spawnPoint.position, transform.rotation) as GameObject;
+				Rigidbody2D bulletRigidBody2D2 = bulletPrefab2.GetComponent<Rigidbody2D> ();
+				bulletRigidBody2D2.AddForce (bulletDirection2 * bulletSpeed, ForceMode2D.Impulse);
+				rounds -= 1;
+			}
+
+			if (rounds > 0) {
+				Vector2 bulletDirection3 = (spawnPointRight.position - transform.position /* + new Vector3(0,5,0)*/).normalized;
+				GameObject bulletPrefab3 = Instantiate (bullet, spawnPointRight.position, transform.rotation) as GameObject;
+				Rigidbody2D bulletRigidBody2D3 = bulletPrefab3.GetComponent<Rigidbody2D> ();
+				bulletRigidBody2D3.AddForce (bulletDirection3 * bulletSpeed, ForceMode2D.Impulse);
+				rounds -= 1;
+			}
+
+			print ("Num rounds: " + rounds);
+		}
+	}
+
+
 
 	void reload ()
 	{
 		int roundDeficit = maxRounds - rounds;
-		//int roundsToAdd = roundDeficit - rounds;
 
 		if (roundDeficit >= 0) {
 			rounds += roundDeficit;
